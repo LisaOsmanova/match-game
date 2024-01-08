@@ -3,7 +3,7 @@ let score = 0;
 let countScore = document.querySelector(".score");
 let svgs = [];
 
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function() {
     const startPopup = document.getElementById('startPopup');
     const startButton = document.getElementById('startButton');
 
@@ -12,40 +12,53 @@ document.addEventListener('DOMContentLoaded', function(){
     startButton.addEventListener('click', function () {
         startPopup.style.display = 'none';
         timer();
-        startGame();
-      });
-})
+    });
 
- function startGame(){
-    document.querySelector(".container")
-    .addEventListener("click",(event)=> {
-
-        const stopPressing = ids.length >= 2;
-        if (!stopPressing){
-            const clickedButton = event.target;
-            
-            let svg = clickedButton.querySelector("svg");
-            console.log(svg);
-            svgs.push(svg);
-
-            if (svgs.length > 0) {
-                showPicture(svgs);
-            }
-
-            //to get data-id
-            let id = clickedButton.getAttribute("data-id");
-            
-            // showPicture(svg);
-            ids.push(id);
-
-            let timetoCount = (ids.length === 2);
-            if (timetoCount){
-                let [firstId, secondId] = ids;
-                handleId(firstId, secondId, svgs);
-            }
+    const tryAgainBtn = document.querySelector(".try");
+    let timeOver = document.querySelector(".timeover");
+    tryAgainBtn.addEventListener("click", function() {
+        hidePicture(svgs)
+        ids = [];
+        let btns = document.querySelectorAll('.cell');
+        for (let btn of btns) {
+            btn.classList.remove('disabled');
+            btn.removeAttribute('disabled')
         }
-});
- }
+        timeOver.style.display = 'none';
+        score = 0;
+        countScore.textContent = `score: ${score}`;
+        timer();
+    });
+
+    document.querySelector(".container")
+        .addEventListener("click", (event) => {
+
+            const stopPressing = ids.length >= 2;
+            if (!stopPressing){
+                const clickedButton = event.target;
+                
+                let svg = clickedButton.querySelector("svg");
+                console.log(svg);
+                svgs.push(svg);
+
+                if (svgs.length > 0) {
+                    showPicture(svgs);
+                }
+
+                //to get data-id
+                let id = clickedButton.getAttribute("data-id");
+                
+                // showPicture(svg);
+                ids.push(id);
+
+                let timetoCount = (ids.length === 2);
+                if (timetoCount){
+                    let [firstId, secondId] = ids;
+                    handleId(firstId, secondId, svgs);
+                }
+            }
+        });
+})
 
 function showPicture(list) {
     for (let svg of list) {
@@ -83,12 +96,18 @@ function handleId (firstId, secondId,list) {
 }
 
 function timer(){
-    let sec = 60;
+    let sec = 5;
     let timer = setInterval(function(){
-        document.getElementById('safeTimerDisplay').innerHTML='00:'+sec;
         sec--;
-        if (sec < 0) {
+        if (sec === 0) {
             clearInterval(timer);
-        }
+            displayTimeOverPopup();
+        } 
+        document.getElementById('safeTimerDisplay').innerHTML='00:'+sec;
     }, 1000);
 };
+
+function displayTimeOverPopup() {
+    let timeOver = document.querySelector(".timeover");
+    timeOver.style.display = 'flex';
+}
