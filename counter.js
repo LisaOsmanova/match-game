@@ -12,7 +12,6 @@ document.querySelector(".container")
             let svg = clickedButton.querySelector("svg");
             console.log(svg);
             svgs.push(svg);
-            console.log(svgs);
 
             if (svgs.length > 0) {
                 showPicture(svgs);
@@ -53,11 +52,16 @@ function handleId (firstId, secondId,list) {
         setTimeout(() => {
             hidePicture(list);
         }, 1000);
+        let buttons = document.querySelectorAll(`[data-id="${firstId}"]`);
+        for (let i = 0; i < buttons.length; i++) {
+          buttons[i].disabled = true;
+          buttons[i].classList.add('disabled');
+        }
+
     } else {
         setTimeout(() => {
             hidePicture(list);
         }, 1000);
     }
-
     ids = [];
 }

@@ -7,10 +7,14 @@
 
 .cell, .container {
   border: 1px solid rgb(47, 47, 235);
-  background-color: rgb(175, 175, 246);
+  background-color: rgb(100, 100, 149);
   cursor: pointer;
 }
 
 .hidden{
   display: none;
+}
+
+.disabled {
+  background-color: rgb(216, 216, 235);
 }
