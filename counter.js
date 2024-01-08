@@ -3,8 +3,23 @@ let score = 0;
 let countScore = document.querySelector(".score");
 let svgs = [];
 
-document.querySelector(".container")
+document.addEventListener('DOMContentLoaded', function(){
+    const startPopup = document.getElementById('startPopup');
+    const startButton = document.getElementById('startButton');
+
+    startPopup.style.display = 'flex';
+
+    startButton.addEventListener('click', function () {
+        startPopup.style.display = 'none';
+        timer();
+        startGame();
+      });
+})
+
+ function startGame(){
+    document.querySelector(".container")
     .addEventListener("click",(event)=> {
+
         const stopPressing = ids.length >= 2;
         if (!stopPressing){
             const clickedButton = event.target;
@@ -30,6 +45,7 @@ document.querySelector(".container")
             }
         }
 });
+ }
 
 function showPicture(list) {
     for (let svg of list) {
@@ -65,3 +81,14 @@ function handleId (firstId, secondId,list) {
     }
     ids = [];
 }
+
+function timer(){
+    let sec = 60;
+    let timer = setInterval(function(){
+        document.getElementById('safeTimerDisplay').innerHTML='00:'+sec;
+        sec--;
+        if (sec < 0) {
+            clearInterval(timer);
+        }
+    }, 1000);
+};

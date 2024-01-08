@@ -7,6 +7,13 @@
     <title>Memory game</title>
 </head>
 <body>
+  <div id="startPopup" class="popup">
+    <div class="popup-content">
+      <p>You have 60 seconds to match 6 pairs.There are 3 different tiles.</p>
+      <button id="startButton">Start</button>
+    </div>
+  </div>
+
     <div class="container">
         <button data-id="scissors" class="cell">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hidden">
@@ -59,6 +66,10 @@
           </svg>
           </button>
     </div>
+    <div id="safeTimer">
+      <h2>Timer</h2>
+      <p id="safeTimerDisplay">00:60</p>
+      </div>
     <span class="score">score</span>
     <script src="./counter.js"></script>
 </body>
