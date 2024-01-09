@@ -2,6 +2,7 @@ let ids = [];
 let score = 0;
 let countScore = document.querySelector(".score");
 let svgs = [];
+let canPressButton = true;
 
 document.addEventListener('DOMContentLoaded', function() {
     const startPopup = document.getElementById('startPopup');
@@ -32,13 +33,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelector(".container")
         .addEventListener("click", (event) => {
-
-            const stopPressing = ids.length >= 2;
-            if (!stopPressing){
+            if (canPressButton){
                 const clickedButton = event.target;
                 
                 let svg = clickedButton.querySelector("svg");
-                console.log(svg);
                 svgs.push(svg);
 
                 if (svgs.length > 0) {
@@ -55,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (timetoCount){
                     let [firstId, secondId] = ids;
                     handleId(firstId, secondId, svgs);
+                    canPressButton = false; 
                 }
             }
         });
@@ -71,7 +70,6 @@ function hidePicture(list) {
         svg.classList.add("hidden");
     }
     svgs = [];
-    console.log(svgs);
 }
 
 function handleId (firstId, secondId,list) {
@@ -93,10 +91,13 @@ function handleId (firstId, secondId,list) {
         }, 1000);
     }
     ids = [];
+    setTimeout(() => {
+        canPressButton = true; 
+    }, 1000);
 }
 
 function timer(){
-    let sec = 5;
+    let sec = 10;
     let timer = setInterval(function(){
         sec--;
         if (sec === 0) {
@@ -111,3 +112,13 @@ function displayTimeOverPopup() {
     let timeOver = document.querySelector(".timeover");
     timeOver.style.display = 'flex';
 }
+
+
+// function handleButtons(a) {
+//     console.log(a);
+//     let [firstBtn, secondBtn] = a;
+//     for (let i = 0; i < a.length; i++) {
+//         if (a[i].getAttribute("data-id") !== firstBtn.getAttribute("data-id") && a[i].getAttribute("data-id") !== secondBtn.getAttribute("data-id")) {
+//             a[i].disabled = false;
+//         }
+//     }
