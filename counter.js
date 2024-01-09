@@ -97,7 +97,7 @@ function handleId (firstId, secondId,list) {
 }
 
 function timer(){
-    let sec = 10;
+    let sec = 20;
     let timer = setInterval(function(){
         sec--;
         if (sec === 0) {
@@ -110,9 +110,15 @@ function timer(){
 
 function displayTimeOverPopup() {
     let timeOver = document.querySelector(".timeover");
+    const timeoverMessage = document.querySelector(".timeover-message");
+
+    if (score === 12) {
+        timeoverMessage.textContent = 'Success! You have scored the maximum number of points!';
+    } else {
+        timeoverMessage.textContent = 'You have not completed the game!';
+    }
     timeOver.style.display = 'flex';
 }
-
 
 // function handleButtons(a) {
 //     console.log(a);
